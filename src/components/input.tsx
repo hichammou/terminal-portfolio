@@ -62,9 +62,8 @@ function Input() {
         return;
       }
 
-      if (command.trim()) {
-        addToHistory?.(command);
-      }
+      addToHistory?.(command);
+
       resetHistoryIndex();
 
       // clear history if command is "clear"
