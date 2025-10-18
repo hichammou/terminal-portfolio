@@ -27,7 +27,7 @@ function HistoryContextProvider({ children }: { children: ReactNode }) {
         // prevent from showing the empty string commands
         const nonEmotyIndex = history[historyIndex - 1]
           ? historyIndex - 1
-          : getNonEmptyHistoryIndex(history, historyIndex - 1);
+          : getNonEmptyHistoryIndex(history, historyIndex - 1, "up");
 
         setHistoryIndex(nonEmotyIndex);
         return history[nonEmotyIndex];
@@ -38,12 +38,17 @@ function HistoryContextProvider({ children }: { children: ReactNode }) {
       // if (direction === "down")
     } else {
       if (historyIndex >= 0 && historyIndex <= history.length - 1) {
-        setHistoryIndex(historyIndex + 1);
         // if the historyIndex is at the last item, return empty string
         if (historyIndex + 1 === history.length) {
           return "";
         }
-        return history[historyIndex + 1];
+
+        const nonEmotyIndex = history[historyIndex + 1]
+          ? historyIndex + 1
+          : getNonEmptyHistoryIndex(history, historyIndex + 1, "down");
+
+        setHistoryIndex(nonEmotyIndex);
+        return history[nonEmotyIndex];
       }
       return "";
     }

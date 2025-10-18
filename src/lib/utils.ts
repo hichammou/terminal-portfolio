@@ -5,12 +5,14 @@ export function arraysAreEqual<T>(a: T[], b: T[]): boolean {
 // a helper to check recursively the previous history if it is empty it will skip and check the prvious until it finds a non empty item and returns it
 export function getNonEmptyHistoryIndex<T>(
   history: T[],
-  index: number
+  index: number,
+  direction: "up" | "down"
 ): number | -1 {
-  console.log({ index, history });
   if (history.at(index)) {
     return index ?? -1;
   }
 
-  return index - 1 >= 0 ? getNonEmptyHistoryIndex(history, index - 1) : -1;
+  const sign = direction === "up" ? index - 1 : index + 1;
+
+  return sign >= 0 ? getNonEmptyHistoryIndex(history, sign, direction) : -1;
 }
