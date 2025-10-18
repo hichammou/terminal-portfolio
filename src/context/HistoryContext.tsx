@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, type ReactNode, useContext, useState } from "react";
+import { getNonEmptyHistoryIndex } from "@/lib/utils";
 
 const HistoryContext = createContext({
   history: [] as string[],
@@ -23,12 +24,18 @@ function HistoryContextProvider({ children }: { children: ReactNode }) {
         setHistoryIndex(history.length - 1);
         return history[history.length - 1];
       } else if (historyIndex > 0) {
-        setHistoryIndex(historyIndex - 1);
-        return history[historyIndex - 1];
+        // prevent from showing the empty string commands
+        const nonEmotyIndex = history[historyIndex - 1]
+          ? historyIndex - 1
+          : getNonEmptyHistoryIndex(history, historyIndex - 1);
+
+        setHistoryIndex(nonEmotyIndex);
+        return history[nonEmotyIndex];
         // if the historyIndex is 0, do nothing
       } else {
         return history[0];
       }
+      // if (direction === "down")
     } else {
       if (historyIndex >= 0 && historyIndex <= history.length - 1) {
         setHistoryIndex(historyIndex + 1);
