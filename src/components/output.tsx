@@ -4,11 +4,12 @@ import { getCommandOutput } from "@/lib/available-commands";
 function Output({ command }: { command: string }) {
   const commandOutput = getCommandOutput(command);
 
-  if (!commandOutput) {
+  // make empty commands not pass this check
+  if (command && !commandOutput) {
     return <div>command not found: {command}</div>;
   }
 
-  if (commandOutput.component) {
+  if (commandOutput?.component) {
     return (
       <Suspense fallback={<div></div>}>
         <commandOutput.component />
