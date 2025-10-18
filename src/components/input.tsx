@@ -24,6 +24,19 @@ function Input() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    function handleDocumentClick() {
+      inputRef.current?.focus();
+    }
+
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
+
+  // focus on the input when
+  useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
@@ -152,7 +165,7 @@ function Input() {
           isValid ? " text-blue" : ""
         }`}
         value={command}
-        onBlur={() => inputRef.current?.focus()} // keep focus on input
+        // onBlur={() => inputRef.current?.focus()} // keep focus on input
         onKeyDown={onKeyDown}
         onChange={onChange}
       />

@@ -52,9 +52,11 @@ export default function Home() {
             </div>
           </div>
 
-          <pre className="font-mono whitespace-pre text-sm leading-tight bg-gradient-to-r from-green to-red px-3 bg-clip-text text-transparent">
-            {linux}
-          </pre>
+          <div className="hidden md:block">
+            <pre className="font-mono whitespace-pre text-sm leading-tight bg-gradient-to-r from-green to-red px-3 bg-clip-text text-transparent">
+              {linux}
+            </pre>
+          </div>
         </div>
         <History />
         {/* <Help /> */}
