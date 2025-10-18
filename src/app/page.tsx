@@ -28,9 +28,14 @@ export default function Home() {
               <p>---------</p>
               <p>
                 This Project's source code can be found in this{" "}
-                <span className="text-pink underline decoration-dashed hover:decoration-solid transition-all">
+                <a
+                  href="https://github.com/hichammou/terminal-portfolio"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-pink underline decoration-dashed hover:decoration-solid transition-all"
+                >
                   Github Repo
-                </span>
+                </a>
               </p>
               <p>---------</p>
               <p>
