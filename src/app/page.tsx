@@ -1,16 +1,22 @@
 "use client";
 
+import { useEffect } from "react";
 import History from "@/components/history";
 import HistoryContextProvider from "@/context/HistoryContext";
-import { linux } from "@/lib/ascii-logos";
+import { linux, name } from "@/lib/ascii-logos";
+import { loadTheme } from "@/lib/theme";
+
+const shortcuts = [
+  { sh: "ctrl + l", desc: "clear terminal output" },
+  { sh: "tab", desc: "autocomplete command" },
+  { sh: "↑ & ↓", desc: "navigate command history" },
+  { sh: "theme", desc: "for terminal theming" },
+];
 
 export default function Home() {
-  const name = String.raw`    __  ______________  _____    __  ___   __  _______  __  ____    ______    ____
-   / / / /  _/ ____/ / / /   |  /  |/  /  /  |/  / __ \/ / / / /   /  _/ /   /  _/
-  / /_/ // // /   / /_/ / /| | / /|_/ /  / /|_/ / / / / / / / /    / // /    / /  
- / __  // // /___/ __  / ___ |/ /  / /  / /  / / /_/ / /_/ / /____/ // /____/ /   
-/_/ /_/___/\____/_/ /_/_/  |_/_/  /_/  /_/  /_/\____/\____/_____/___/_____/___/   
-                                                                                  `;
+  useEffect(() => {
+    loadTheme();
+  }, []);
 
   return (
     <div className="min-h-screen text-sm px-4 py-7 space-y-4 text-foreground-text dark:text-gray">
@@ -44,15 +50,11 @@ export default function Home() {
               </p>
               <p>---------</p>
               <div>
-                <pre className="text-blue">
-                  {"ctrl + l".padEnd(15, " ")} {"-->"} clear terminal output
-                </pre>
-                <pre className="text-blue">
-                  {"tab".padEnd(15, " ")} {"-->"} autocomplete command
-                </pre>
-                <pre className="text-blue">
-                  {"↑ & ↓".padEnd(15, " ")} {"-->"} navigate command history
-                </pre>
+                {shortcuts.map((sh) => (
+                  <pre key={sh.sh} className="text-blue">
+                    {sh.sh.padEnd(15, " ")} ➡️ {sh.desc}
+                  </pre>
+                ))}
               </div>
             </div>
           </div>
@@ -69,39 +71,3 @@ export default function Home() {
     </div>
   );
 }
-
-/*
------- dark -----
-#1E1E2E // background
-
-// red
-#E06C75
-#F38BA8
-
-// gray
-#BAC2DE
-#A6ADC8
-
-// green
-#7ED88B
-#A6E3A1
-
-// yellow
-#EBD391
-#F9E2AF
-
-// blue
-#89B4FA
-#74A8FC
-
-// pink
-#F5C2E7
-#F2AEDE
-
-// cyan
-#94E2D5
-#6BD7CA
-
------- light -----
-#EFF1F5 // background
-*/
