@@ -52,7 +52,7 @@ GIT       🔧   Version Control
 function Skills() {
   return (
     <div className="space-y-2">
-      <pre className="font-jetbrains bg-gradient-to-r from-blue from-20% to-pink-light to-80% bg-clip-text text-transparent">
+      <pre className="font-jetbrains bg-gradient-to-r from-blue from-20% to-pink to-80% bg-clip-text text-transparent">
         {heading}
       </pre>
       <pre className="font-jetbrains">{skills}</pre>
