@@ -100,3 +100,65 @@ export const getSimilarCommand = (input: string) => {
 export const getCommandOutput = (command: string) => {
   return availableCommands.find((cmd) => cmd.cmd === command);
 };
+
+export const checkSubCommand = (command: Command, subCommand: string) => {
+  return command.subCmd
+    ? command.subCmd.findIndex((cmd) => cmd.cmd === subCommand)
+    : -1;
+};
+
+export const renderSubCommandMessage = (
+  command: Command,
+  subCommand: SubCommand | string,
+  {
+    isError,
+    argsNotProvided,
+    tooManyArgs,
+  }: {
+    isError?: boolean;
+    unvalidSubCommand?: boolean;
+    argsNotProvided?: boolean;
+    tooManyArgs?: boolean;
+  }
+) => {
+  const commandHasOptions = command.subCmd && command.subCmd.length > 0;
+
+  const genericMessage = (
+    <div className="space-y-1.5">
+      <p>Usage: {command.usage}</p>
+      <p>Options: </p>
+      <ul className="ms-4">
+        {commandHasOptions &&
+          command.subCmd?.map((cmd) => (
+            <li key={cmd.cmd}>
+              <div className="flex">
+                <pre className="text-blue">
+                  {`${cmd.cmd}  ${cmd.acceptsArgs ? "[ARGS]" : ""}`.padEnd(
+                    17,
+                    " "
+                  )}
+                </pre>
+                <p>{cmd.description}</p>
+              </div>
+              <pre className="text-sm ms-2 text-red">{cmd.usage}</pre>
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
+
+  let message = `unvalid option: ${
+    typeof subCommand === "string" ? subCommand : subCommand?.cmd
+  }`;
+
+  if (argsNotProvided) message = "command needs at least one argument";
+
+  if (tooManyArgs) message = "too many arguments";
+
+  return (
+    <>
+      {isError && <p>{message}</p>}
+      {genericMessage}
+    </>
+  );
+};
