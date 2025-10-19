@@ -13,7 +13,8 @@
     "dayjs": "^1.11.18",
     "next": "15.5.5",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "textarea-caret": "^3.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
@@ -21,6 +22,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/textarea-caret": "^3.0.4",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

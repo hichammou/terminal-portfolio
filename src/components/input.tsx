@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import getCaretCoordinates from "textarea-caret";
 import { useHistory } from "@/context/HistoryContext";
 import { getCommandOutput, getSimilarCommand } from "@/lib/available-commands";
 import Output from "./output";
@@ -19,6 +20,7 @@ function Input() {
     resetHistoryIndex,
   } = useHistory();
   const [isValid, setIsValid] = useState(false);
+  const [coords, setCoords] = useState({ left: 0, top: 0 });
 
   // a ref to the input element
   const inputRef = useRef<HTMLInputElement>(null);
@@ -129,10 +131,22 @@ function Input() {
     }
   };
 
+  // to track the input caret position
+  const handleCaretUpdate = () => {
+    const el = inputRef.current;
+    if (!el) return;
+    const caretPos = el.selectionStart || 0;
+    const { left, top } = getCaretCoordinates(el, caretPos);
+    setCoords({ left, top });
+  };
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // prevent the user from entering non sense texts
+    if (e.target.value.length > 30) return;
+    const commandFirstPart = e.target.value.split(" ")[0];
     // check if the command is available
     const isValidCommand =
-      getCommandOutput(e.target.value)?.cmd === e.target.value;
+      getCommandOutput(commandFirstPart)?.cmd === commandFirstPart;
 
     if (isValidCommand) {
       setIsValid(true);
@@ -150,24 +164,50 @@ function Input() {
     setCommandCache(e.target.value);
   };
 
+  const rendredCommand = command.split(" ");
+
   return (
-    <div>
-      <span className="text-yellow-light">guest</span>
-      <span>@</span>
-      <span className="text-green">terminal.hicham-moulili.dev</span>
-      <span>:~$</span>
-      <input
-        type="text"
-        ref={inputRef}
-        disabled={disabled}
-        className={`border-none outline-0 ms-2 + ${
-          isValid ? " text-blue" : ""
-        }`}
-        value={command}
-        // onBlur={() => inputRef.current?.focus()} // keep focus on input
-        onKeyDown={onKeyDown}
-        onChange={onChange}
-      />
+    <div className="relative">
+      <div className="flex items-center">
+        <span className="text-yellow">guest</span>
+        <span>@</span>
+        <span className="text-green">terminal.hicham-moulili.dev</span>
+        <span>:~$</span>
+        <div className="inline-flex relative items-end ms-2">
+          <input
+            type="text"
+            ref={inputRef}
+            disabled={disabled}
+            className={`absolute opacity-0 peer -top-40  border-none outline-0 ms-2 + ${
+              isValid ? " text-blue" : ""
+            }`}
+            value={command}
+            onKeyUp={handleCaretUpdate}
+            onKeyDown={onKeyDown}
+            onChange={onChange}
+          />
+          <pre className="font-sans">
+            {isValid ? (
+              <>
+                <span className="text-blue">{rendredCommand.at(0)}</span>
+                {rendredCommand.length > 1 && (
+                  <span> {rendredCommand.slice(1).join(" ")}</span>
+                )}
+              </>
+            ) : (
+              command
+            )}
+          </pre>
+          {!disabled && (
+            <span
+              style={{ left: coords.left, top: coords.top }}
+              className={`animate hidden peer-focus:inline-block w-px h-5 bg-gray animate-blink ${
+                command.length > 0 ? "absolute" : "relative"
+              }`}
+            />
+          )}
+        </div>
+      </div>
       <div className="mt-2">
         {disabled && command !== "clear" && <Output command={command} />}
         {hints.length > 0 && (
