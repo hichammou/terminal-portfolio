@@ -1,10 +1,24 @@
 import React from "react";
+import { themes } from "./theme";
 
-type Command = {
+type SubCommand = {
+  cmd: string;
+  description?: string;
+  usage?: string;
+  acceptsArgs: boolean;
+};
+
+export type Command = {
   cmd: string;
   description: string;
   usage: string;
-  component?: React.LazyExoticComponent<React.ComponentType>;
+  subCmd?: SubCommand[];
+  args?: string[];
+  component?:
+    | React.LazyExoticComponent<React.ComponentType>
+    | React.LazyExoticComponent<
+        React.ComponentType<{ subCommand: string; args: string[] }>
+      >;
 };
 
 export const availableCommands: Command[] = [
@@ -19,12 +33,32 @@ export const availableCommands: Command[] = [
     description: "Clear the terminal screen",
     usage: "clear",
   },
-
   {
     cmd: "history",
     description: "show command history",
     usage: "history",
     component: React.lazy(() => import("@/components/commands/history")),
+  },
+  {
+    cmd: "theme",
+    description: "terminal theme",
+    usage: "theme [OPTIONS] [ARGS]",
+    component: React.lazy(() => import("@/components/commands/theme")),
+    subCmd: [
+      {
+        cmd: "get",
+        acceptsArgs: false,
+        description: "Get the current theme",
+        usage: "get theme",
+      },
+      {
+        cmd: "set",
+        acceptsArgs: true,
+        description: "change theme",
+        usage: `set theme <theme>\navailable themes: ${themes.join(", ")}.
+        `,
+      },
+    ],
   },
 
   {
