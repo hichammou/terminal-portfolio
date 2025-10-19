@@ -178,7 +178,7 @@ function Input() {
             type="text"
             ref={inputRef}
             disabled={disabled}
-            className={`absolute opacity-0 peer -top-40  border-none outline-0 ms-2 + ${
+            className={`absolute opacity-0 peer top-4  border-none outline-0 ms-2 + ${
               isValid ? " text-blue" : ""
             }`}
             value={command}
