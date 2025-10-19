@@ -46,11 +46,17 @@ function Output({ command }: { command: string }) {
   }
 
   if (commandOutput?.component) {
-    return (
-      <Suspense fallback={<div></div>}>
+    const Component =
+      commandOutput.subCmd && commandOutput.subCmd.length > 0 ? (
+        <commandOutput.component
+          args={commandParts.slice(2)}
+          subCommand={commandParts.at(1) || ""}
+        />
+      ) : (
+        // @ts-expect-error | at this point it is sure that the component does not need any props
         <commandOutput.component />
-      </Suspense>
-    );
+      );
+    return <Suspense fallback={<Loader />}>{Component}</Suspense>;
   }
 
   // clear does not have any output
