@@ -71,3 +71,67 @@ body {
   color: var(--foreground);
   font-family: var(--font-jetbrains), Helvetica, sans-serif;
 }
+
+/* Terminal loader keyframes and helper classes */
+
+@keyframes cursor-spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(0.9);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-type {
+  0% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+}
+
+/* helper utilities */
+.animate-cursor-spin {
+  animation: cursor-spin 2s steps(3) infinite;
+}
+
+.animate-blink {
+  animation: blink .9s infinite;
+}
+
+.animate-pulse-type {
+  animation: pulse-type 0.75s ease-in-out infinite;
+}
+
+.terminal-loader {
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
