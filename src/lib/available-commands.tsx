@@ -49,13 +49,13 @@ export const availableCommands: Command[] = [
         cmd: "get",
         acceptsArgs: false,
         description: "Get the current theme",
-        usage: "get theme",
+        usage: "theme get",
       },
       {
         cmd: "set",
         acceptsArgs: true,
         description: "change theme",
-        usage: `set theme <theme>\navailable themes: ${themes.join(", ")}.
+        usage: `theme set <theme>\navailable themes: ${themes.join(", ")}.
         `,
       },
     ],
