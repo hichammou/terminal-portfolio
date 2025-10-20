@@ -12,5 +12,12 @@ export function getTheme() {
   return localStorage.getItem("theme") || "catppuccin";
 }
 
-export const themes = ["apprentice", "catppuccin"];
+export const themes = [
+  "apprentice",
+  "catppuccin",
+  "ayu",
+  "posterpole",
+  "catppucin-light",
+  "everforest-light",
+];
 export const themesString = `${themes.join(" ")}.`;

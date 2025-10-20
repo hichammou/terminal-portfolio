@@ -41,6 +41,61 @@
 
 }
 
+/* Ayu theme */
+[data-theme="ayu"] {
+  --foreground: #BFBDB6;
+  --background: #0B0E14;
+  --red: #EA6C73;
+  --green: #7FD962;
+  --yellow: #F9AF4F;
+  --blue: #53BDFA;
+  --pink: #CDA1FA;
+  --cyan: #90E1C6;
+  --gray: #C7C7C7;
+
+}
+
+/* Posterpole theme */
+[data-theme="posterpole"] {
+  --foreground: #B2ADA7;
+  --background: #25222A;
+  --red: #A97070;
+  --green: #778C73;
+  --yellow: #CC9166;
+  --blue: #6C7F93;
+  --pink: #B894AF;
+  --cyan: #8EA4A2;
+  --gray: #AFA79D;
+}
+
+/* Light themes */
+
+/* Catppucin-light theme */
+[data-theme="catppucin-light"] {
+  --foreground: #5C5F77;
+  --background: #EFF1F5;
+  --red: #D20F39;
+  --green: #40A02B;
+  --yellow: #DF8E1D;
+  --blue: #1E66F5;
+  --pink: #EA76CB;
+  --cyan: #179299;
+  --gray: #ACB0BE;
+}
+
+/* everforest-light theme */
+[data-theme="everforest-light"] {
+  --foreground: #5C6A72;
+  --background: #FDF6E3;
+  --red: #F85552;
+  --green: #8DA101;
+  --yellow: #DFA000;
+  --blue: #3A94C5;
+  --pink: #DF69BA;
+  --cyan: #35A77C;
+  --gray: #939F91;
+}
+
 
 @theme inline {
   --color-background: var(--background);
