@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import getCaretCoordinates from "textarea-caret";
 import { useHistory } from "@/context/HistoryContext";
-import { getCommandOutput, getSimilarCommand } from "@/lib/available-commands";
+import { getCommand, getSimilarCommands } from "@/lib/available-commands";
 import Output from "./output";
 
 function Input() {
@@ -111,7 +111,7 @@ function Input() {
       // do nothing if command is empty
       if (!command.trim()) return;
 
-      const findCommand = getSimilarCommand(command);
+      const findCommand = getSimilarCommands(command);
 
       if (findCommand) {
         if (Array.isArray(findCommand)) {
@@ -146,7 +146,7 @@ function Input() {
     const commandFirstPart = e.target.value.split(" ")[0];
     // check if the command is available
     const isValidCommand =
-      getCommandOutput(commandFirstPart)?.cmd === commandFirstPart;
+      getCommand(commandFirstPart)?.cmd === commandFirstPart;
 
     if (isValidCommand) {
       setIsValid(true);
@@ -155,7 +155,7 @@ function Input() {
     }
 
     // clear hints if command is not included in hints
-    if (!getSimilarCommand(e.target.value).length && hints.length > 0) {
+    if (!getSimilarCommands(e.target.value).length && hints.length > 0) {
       setHints([]);
       setNextHint(0);
     }

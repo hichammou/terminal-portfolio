@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import {
   checkSubCommand,
-  getCommandOutput,
+  getCommand,
   renderSubCommandMessage,
 } from "@/lib/available-commands";
 import Loader from "./loader";
@@ -9,7 +9,7 @@ import Loader from "./loader";
 function Output({ command }: { command: string }) {
   const commandParts = command.split(" ");
 
-  const commandOutput = getCommandOutput(commandParts[0]);
+  const commandOutput = getCommand(commandParts[0]);
 
   // make empty commands not pass this check
   if (command !== "" && !commandOutput) {

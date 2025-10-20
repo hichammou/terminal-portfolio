@@ -83,7 +83,7 @@ export const availableCommands: Command[] = [
 
 export const rawCommands = availableCommands.map((command) => command.cmd);
 
-export const getSimilarCommand = (input: string) => {
+export const getSimilarCommands = (input: string) => {
   const commands = [];
 
   if (input.trim() === "") return "";
@@ -97,7 +97,7 @@ export const getSimilarCommand = (input: string) => {
   return commands.length === 1 ? commands[0] : commands;
 };
 
-export const getCommandOutput = (command: string) => {
+export const getCommand = (command: string) => {
   return availableCommands.find((cmd) => cmd.cmd === command);
 };
 
