@@ -13,3 +13,4 @@ export function getTheme() {
 }
 
 export const themes = ["apprentice", "catppuccin"];
+export const themesString = `${themes.join(" ")}.`;

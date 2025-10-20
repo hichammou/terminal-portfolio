@@ -31,7 +31,7 @@ function Output({ command }: { command: string }) {
     const indexCheck = checkSubCommand(commandOutput, commandParts[1]);
     if (indexCheck === -1) {
       return renderSubCommandMessage(commandOutput, commandParts[1], {
-        isError: true,
+        isError: commandParts[1] !== "", // to prevent from consedering empty string as an option
       });
     }
 
